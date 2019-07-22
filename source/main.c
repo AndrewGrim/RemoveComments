@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
 	char inputFile[150];
 	char outputFile[150];
 	for (int i = 1; i < argc; i++) {
-		if (strcmp(argv[i], "-file") == 0) {
+		if (strcmp(argv[i], "-input") == 0) {
 			strcpy(inputFile, argv[i + 1]);
 		} else if (strcmp(argv[i],"-output") == 0) {
 			strcpy(outputFile, argv[i + 1]);
@@ -34,10 +34,10 @@ int main(int argc, char *argv[]) {
 
 	while ((input = fgetc(fileObject)) != EOF) {
 		nextChar = getc(fileObject);
-		if (input == '/' && nextChar == '/') {
+		if ((input == '/' && nextChar == '/') && (lastInput != '"')) {
 			isSingleLineComment = true;
 			isMultiLineComment = false;
-		} else if (input == '/' && nextChar == '*') {
+		} else if ((input == '/' && nextChar == '*') && (lastInput != '"')) {
 			isMultiLineComment = true;
 			isSingleLineComment = false;
 		}
